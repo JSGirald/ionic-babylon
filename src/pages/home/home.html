@@ -1,14 +1,21 @@
+<!--
+  Template for the HomePage page.
+-->
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+
+  <ion-navbar color="dark">
+    <ion-title>Roll the Bones!</ion-title>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+<ion-content>
+  <canvas id="surface" #surface ion-fixed></canvas>
+  <ion-fab bottom right>
+    <button ion-fab color="dark" transparent (tap)="rollEm($event)"><ion-icon name="refresh"></ion-icon></button>
+  </ion-fab>
+  <ion-fab bottom left>
+    <button ion-fab color="dark" transparent (tap)="settings($event)"><ion-icon name="settings"></ion-icon></button>
+  </ion-fab>
 </ion-content>
