@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Engine, Scene } from 'babylonjs';
 /*
   Class for the BabylonjsProvider provider.
@@ -8,7 +8,7 @@ export class BabylonjsProvider {
   private _engine: Engine;
   private _uid: number;
 
-  constructor() {
+  constructor(private zone: NgZone) {
     if (!this._uid) {
       this._uid = Math.floor(Date.now() / 1);
     }
@@ -37,10 +37,11 @@ export class BabylonjsProvider {
   }
 
   public start(scene: Scene): void {
-    this._engine.runRenderLoop(() => {
-      scene.render();
-    });
-
+    this.zone.runOutsideAngular(() => {
+      this._engine.runRenderLoop(() => {
+        scene.render();
+      });
+    })
   }
 
   public stop(): void {

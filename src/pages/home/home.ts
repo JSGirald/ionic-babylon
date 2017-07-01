@@ -3,7 +3,7 @@ import { ConfigPage } from './../config/config';
 import { BabylonjsProvider } from './../../providers/babylonjs/babylonjs';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Scene, HemisphericLight, Vector3, MeshBuilder, StandardMaterial, Color3, ArcRotateCamera, Texture, PhysicsImpostor, VertexData } from 'babylonjs';
+import { Scene, HemisphericLight, Vector3, MeshBuilder, StandardMaterial, Color3, ArcRotateCamera, Texture, PhysicsImpostor } from 'babylonjs';
 
 /**
  * Class for the HomePage page.
@@ -45,16 +45,14 @@ export class HomePage {
         faceUV: this.config.getFaceUV(this.config.colorOne),
         updatable: false
       }
-      let vertexData = VertexData.CreateBox(options);
-      vertexData.applyToMesh(this.firstDie, options.updatable);      
+      MeshBuilder.UpdateBoxOptions(this.firstDie, options);
 
       options = {
         size: 1.25,
         faceUV: this.config.getFaceUV(this.config.colorTwo),
         updatable: false
       }
-      vertexData = VertexData.CreateBox(options);
-      vertexData.applyToMesh(this.secondDie, options.updatable);      
+      MeshBuilder.UpdateBoxOptions(this.secondDie, options);
     }
   }
 
@@ -67,7 +65,7 @@ export class HomePage {
     // attach the camera to the canvas
     this._camera = new ArcRotateCamera("ArcRotateCamera", 0, 0, 0, Vector3.Zero(), this._scene);
     this._camera.setPosition(new Vector3(0, 15, 1));
-    this._camera.attachControl(this.surface.nativeElement, false);
+    //this._camera.attachControl(this.surface.nativeElement, false);
 
     // create two  basic light, aiming 0,1,0 - meaning, to the sky
     this._lightOne = new HemisphericLight('light1', new Vector3(1, 0, 0), this._scene);
