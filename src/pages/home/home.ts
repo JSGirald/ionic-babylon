@@ -3,7 +3,7 @@ import { ConfigPage } from './../config/config';
 import { BabylonjsProvider } from './../../providers/babylonjs/babylonjs';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Scene, HemisphericLight, Vector3, MeshBuilder, StandardMaterial, Color3, ArcRotateCamera, Texture, PhysicsImpostor } from 'babylonjs';
+import { Scene, HemisphericLight, Vector3, MeshBuilder, StandardMaterial, Color3, ArcRotateCamera, Texture, PhysicsImpostor, VertexData } from 'babylonjs';
 
 /**
  * Class for the HomePage page.
@@ -45,14 +45,18 @@ export class HomePage {
         faceUV: this.config.getFaceUV(this.config.colorOne),
         updatable: false
       }
-      MeshBuilder.UpdateBoxOptions(this.firstDie, options);
+      //MeshBuilder.UpdateBoxOptions(this.firstDie, options);
+      let vertexData = VertexData.CreateBox(options);
+      vertexData.applyToMesh(this.firstDie, options.updatable); 
 
       options = {
         size: 1.25,
         faceUV: this.config.getFaceUV(this.config.colorTwo),
         updatable: false
       }
-      MeshBuilder.UpdateBoxOptions(this.secondDie, options);
+      //MeshBuilder.UpdateBoxOptions(this.secondDie, options);
+      vertexData = VertexData.CreateBox(options);
+      vertexData.applyToMesh(this.secondDie, options.updatable);      
     }
   }
 
